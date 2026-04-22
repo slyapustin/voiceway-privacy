@@ -26,7 +26,7 @@ title: Voiceway — Support
 ## Feedback & Bug Reports
 
 - Open an issue on [GitHub](https://github.com/slyapustin/tour-guide/issues)
-- Email **s.lyapustin@gmail.com**
+- Email **voiceway@slyapustin.com**
 - Use the **Feedback** button inside the app — it exports a short debug snapshot you can attach.
 
 ## Privacy

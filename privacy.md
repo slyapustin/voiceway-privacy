@@ -81,4 +81,4 @@ We'll post updates on this page with a new "Last updated" date. Material changes
 
 ## Contact
 
-Questions or requests about your privacy? Open an issue on [github.com/slyapustin/tour-guide/issues](https://github.com/slyapustin/tour-guide/issues) or email **s.lyapustin@gmail.com**.
+Questions or requests about your privacy? Open an issue on [github.com/slyapustin/tour-guide/issues](https://github.com/slyapustin/tour-guide/issues) or email **voiceway@slyapustin.com**.
