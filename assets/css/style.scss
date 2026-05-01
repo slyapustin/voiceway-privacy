@@ -5,3 +5,11 @@
 footer {
   display: none;
 }
+
+// Hide the "View the Project on GitHub" link the minimal theme injects
+// into the header. The repo is private, so the link 404s for visitors.
+header .view,
+header p.view,
+header a[href*="github.com"] {
+  display: none;
+}
