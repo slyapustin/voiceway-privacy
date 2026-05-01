@@ -1,15 +1,15 @@
 ---
 layout: default
-title: Voiceway — Support
+title: VoiceWay — Support
 ---
 
-# Voiceway — Support
+# VoiceWay — Support
 
 ## Troubleshooting
 
 **No narrations playing**
 - Check the map. If there are no pins near you, try panning to a city centre — remote areas may not have nearby Wikipedia articles.
-- Ensure location permission is granted: iOS **Settings → Privacy & Security → Location Services → Voiceway** → "While Using" or "Always".
+- Ensure location permission is granted: iOS **Settings → Privacy & Security → Location Services → VoiceWay** → "While Using" or "Always".
 - Tap **Auto Narrate** to start automatic playback.
 
 **Audio not routing to CarPlay / Bluetooth**
@@ -25,9 +25,9 @@ title: Voiceway — Support
 
 ## Feedback & Bug Reports
 
-- Open an issue on [GitHub](https://github.com/slyapustin/tour-guide/issues)
-- Email **voiceway@slyapustin.com**
-- Use the **Feedback** button inside the app — it exports a short debug snapshot you can attach.
+The fastest way to reach us is the **Report Issue** button inside the app — tap the speech-bubble icon on the main screen. It opens an email with a short debug snapshot already attached, so we can investigate without going back and forth.
+
+If you'd rather email directly, write to **[voiceway@slyapustin.com](mailto:voiceway@slyapustin.com?subject=App%20Feedback)**.
 
 ## Privacy
 

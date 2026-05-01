@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Voiceway — Privacy Policy
+title: VoiceWay — Privacy Policy
 ---
 
-# Voiceway — Privacy Policy
+# VoiceWay — Privacy Policy
 
 **Last updated:** 22 April 2026
 
-Voiceway ("the app") is an iOS app that narrates Wikipedia articles about nearby places. This document explains what data the app handles and how.
+VoiceWay ("the app") is an iOS app that narrates Wikipedia articles about nearby places. This document explains what data the app handles and how.
 
 ## Summary
 
@@ -19,7 +19,7 @@ Voiceway ("the app") is an iOS app that narrates Wikipedia articles about nearby
 ## What data the app uses
 
 ### Precise location
-When the app is active, iOS provides your GPS coordinates to the app. Voiceway sends those coordinates to Wikipedia, OpenStreetMap Nominatim, and our own backend **only for the duration of the request** — to look up articles about places near you. We do not retain your location in any database, log, or analytics system.
+When the app is active, iOS provides your GPS coordinates to the app. VoiceWay sends those coordinates to Wikipedia, OpenStreetMap Nominatim, and our own backend **only for the duration of the request** — to look up articles about places near you. We do not retain your location in any database, log, or analytics system.
 
 ### Anonymous device identifier
 The app generates a SHA-256 hash of the device's `identifierForVendor` value. This hash is sent to our backend as the `X-Device-ID` header so we can apply per-device daily usage limits on narration and text-to-speech generation. The hash cannot be used to identify you, does not persist across app reinstalls, and is not linked to an Apple ID, email address, or any other identity.
@@ -41,7 +41,7 @@ When you use the cloud voice (OpenAI text-to-speech), the generated audio file i
 
 ## Where data goes
 
-Voiceway sends data to the following services **only to service real-time requests**:
+VoiceWay sends data to the following services **only to service real-time requests**:
 
 - **Wikipedia** (Wikimedia Foundation) — article search and summaries. See the [Wikimedia Privacy Policy](https://foundation.wikimedia.org/wiki/Privacy_policy).
 - **OpenStreetMap Nominatim** — reverse-geocoding a coordinate to a country/region so we can pick a local-language Wikipedia. See the [Nominatim Usage Policy](https://operations.osmfoundation.org/policies/nominatim/).
@@ -59,7 +59,7 @@ All permissions are optional. If you decline location access, the app still lets
 
 ## Children's privacy
 
-Voiceway is not directed at children under 13 and does not knowingly collect information from them.
+VoiceWay is not directed at children under 13 and does not knowingly collect information from them.
 
 ## Retention
 
@@ -72,7 +72,7 @@ Voiceway is not directed at children under 13 and does not knowingly collect inf
 
 - Clear all caches: **Settings → Cache → Clear Cache** in the app.
 - Export your on-device activity log: **Settings → Debug → Debug Logs → Export**. Logs stay on your device unless you choose to share the exported file.
-- Revoke location access: iOS **Settings → Privacy & Security → Location Services → Voiceway**.
+- Revoke location access: iOS **Settings → Privacy & Security → Location Services → VoiceWay**.
 - Delete all data: uninstall the app.
 
 ## Changes to this policy
@@ -81,4 +81,4 @@ We'll post updates on this page with a new "Last updated" date. Material changes
 
 ## Contact
 
-Questions or requests about your privacy? Open an issue on [github.com/slyapustin/tour-guide/issues](https://github.com/slyapustin/tour-guide/issues) or email **voiceway@slyapustin.com**.
+Questions or requests about your privacy? Email **[voiceway@slyapustin.com](mailto:voiceway@slyapustin.com?subject=Privacy%20Question)**.
