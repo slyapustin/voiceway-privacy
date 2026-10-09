@@ -5,80 +5,80 @@ title: VoiceWay — Privacy Policy
 
 # VoiceWay — Privacy Policy
 
-**Last updated:** 22 April 2026
+_Last updated: 2026-10-09_
 
-VoiceWay ("the app") is an iOS app that narrates Wikipedia articles about nearby places. This document explains what data the app handles and how.
+VoiceWay is a GPS-based audio tour guide app developed by Sergey Lyapustin (individual developer, contact: voiceway@slyapustin.com).
 
-## Summary
+This policy describes what information the app collects, why, and who it's shared with.
 
-- No account, no login, no email, no password.
-- Your location is used to find nearby places. It is never stored on our servers.
-- A random, anonymous device identifier is used for rate-limiting. It is not linked to you or any account.
-- The app does not display ads, does not track you across other apps or websites, and does not sell your data.
+## What we collect
 
-## What data the app uses
+### Stored on your device
+- **Listening history** — which places you've heard narrations about
+- **Played points of interest** — to avoid repeating narrations during a tour
+- **Cached narration text and audio files** — so you can replay without re-fetching
+- **Preferences** — language, voice, trigger distance, enabled categories, etc.
+- **Debug log** — your recent actions inside the app, which can include place and location context, for your own troubleshooting via "Export Logs"
 
-### Precise location
-When the app is active, iOS provides your GPS coordinates to the app. VoiceWay sends those coordinates to Wikipedia, OpenStreetMap Nominatim, and our own backend **only for the duration of the request** — to look up articles about places near you. We do not retain your location in any database, log, or analytics system.
+Full debug logs and listening history are not uploaded automatically. You can explicitly export and share them. Optional automatic diagnostic sharing uses the restricted report described below.
 
-### Anonymous device identifier
-The app generates a SHA-256 hash of the device's `identifierForVendor` value. This hash is sent to our backend as the `X-Device-ID` header so we can apply per-device daily usage limits on narration and text-to-speech generation. The hash cannot be used to identify you, does not persist across app reinstalls, and is not linked to an Apple ID, email address, or any other identity.
+### Sent to Wikimedia and our backend (only during active use)
+When the app searches for nearby places, it sends your location coordinates and selected Wikipedia language to Wikimedia's geosearch API. When it requests a narration, the app sends to our Cloudflare Worker backend:
+- **Your precise location** (latitude/longitude), when available — used for location-based article lookup. The backend does not write these coordinates into its usage counters, device metadata, narration/audio caches, or automatic diagnostic reports.
+- **The Wikipedia page ID and title** of the place you're interested in
+- **Your narration language and length preference**
+- **A hash of your device's vendor identifier** (SHA-256 of iOS `identifierForVendor`) — used to enforce usage limits and protect app endpoints from excessive requests
+- When cloud text-to-speech is enabled, the narration text and selected voice are sent to the backend to generate audio.
 
-### Wikipedia article text
-When a place is nearby, the app fetches the corresponding Wikipedia article summary and generates a short spoken narration from it. Narration text is cached on your device and (in hashed form) on our backend so repeated requests do not re-generate the same content. Cached narration text is retained for up to three days on the backend; device-side cache is retained until you clear it in Settings.
+Cloudflare derives a country, city, region, and time zone from the request IP. The backend stores those fields with the device hash, app version, and first/last-seen times for up to 30 days after the last metadata update. This record does not contain the raw IP address. Cloudflare also processes IP addresses and request metadata to operate its services.
 
-### Generated audio
-When you use the cloud voice (OpenAI text-to-speech), the generated audio file is cached both on your device and on our backend so re-listens are free and instant. Audio cache is keyed by a hash of the narration text and voice, not by your identifier.
+We do **not** collect or store:
+- Your name, email, phone number, Apple ID, or any account identifier
+- Your contact list, photos, calendar, or other personal data
+- Your IP address beyond what Cloudflare's standard request logging retains
+- Analytics events tied to an identifiable user
+- Any behavioral profile, advertising identifier, or third-party tracking data
 
-## Data we do not collect
+### Optional automatic diagnostics
+Automatic diagnostic sharing is off by default. If you enable it in Settings, the app may send a bounded report of recent app events and technical failures to our backend, no more than once every 15 minutes. Reports contain app version, event times, session/request/operation identifiers, screen/control names, selected technical settings, error codes, and request timings.
 
-- Name, email address, phone number, or any other contact info
-- Apple ID, sign-in credentials, or social-media profile
-- Health, financial, or payment information
-- Contacts, calendar, photos, microphone, or camera
-- Advertising identifier (IDFA)
-- Any usage analytics or behavioural tracking
+These automatic reports exclude precise coordinates, place titles and Wikipedia page IDs, typed search terms, narration text, feedback notes, and credentials. The existing device header authenticates/rate-limits requests; it is not copied into the diagnostic report. The backend independently filters report fields.
 
-## Where data goes
+Raw reports are kept for up to seven days and may be deleted sooner after processing. Sanitized technical summaries may be retained in our private GitHub issue tracker and processed by AI-assisted development tools to reproduce, fix, and verify bugs. Turn off automatic sharing in Settings to stop future uploads. This does not delete reports already submitted; contact us for help with removal.
 
-VoiceWay sends data to the following services **only to service real-time requests**:
+To enforce the 15-minute upload limit, the backend also keeps a hash of the device hash in a cooldown record for up to 15 minutes.
 
-- **Wikipedia** (Wikimedia Foundation) — article search and summaries. See the [Wikimedia Privacy Policy](https://foundation.wikimedia.org/wiki/Privacy_policy).
-- **OpenStreetMap Nominatim** — reverse-geocoding a coordinate to a country/region so we can pick a local-language Wikipedia. See the [Nominatim Usage Policy](https://operations.osmfoundation.org/policies/nominatim/).
-- **OpenAI** — narration generation (gpt-5.4-mini) and cloud text-to-speech (gpt-4o-mini-tts), both reached via our backend proxy so no API key is exposed on device. See the [OpenAI API Privacy Policy](https://openai.com/policies/privacy-policy).
-- **Cloudflare** — our backend is a Cloudflare Worker with KV and R2 storage. See the [Cloudflare Privacy Policy](https://www.cloudflare.com/privacypolicy/).
+### Sub-processors
+- **GitHub and AI-assisted development tools** — process filtered technical bug summaries for diagnosis and repair.
+- **Cloudflare Workers + KV + R2** — hosts our backend, caches generated narrations and audio, and stores device-linked usage counters and limited device metadata
+- **OpenAI API** — generates the narration text (Chat Completions) and the synthesized voice audio (Text-to-Speech) from Wikipedia article content. Our backend sends the Wikipedia article text + your narration language to OpenAI. Per OpenAI's API data usage policy, data sent through the API is not used to train OpenAI models.
+- **Wikipedia (Wikimedia Foundation)** — source of place descriptions. The app fetches public Wikipedia articles via the Wikimedia APIs.
+- **OpenStreetMap Nominatim** — the backend may send coordinates for reverse geocoding to select the local Wikipedia language.
 
-We do not sell data to any third party. We do not use data for advertising.
+## How long we keep it
 
-## Permissions the app requests
+- **Device-side cache**: cached Wikipedia summaries, narration text, and audio stay until you clear the cache (Settings → Clear Cache) or delete the app. Listening history, played-place records, preferences, and debug logs have their own in-app reset or clear controls; debug logs are limited to the newest 5,000 entries.
+- **Backend usage counters**: per-day narration and cloud-TTS usage counters expire three days after the start of their UTC usage day. Device metadata (IP-derived country/city/region/time zone, app version, and first/last-seen times) expires up to 30 days after its last update.
+- **Shared narration text cache (backend)**: generated narration text is kept for up to 90 days so other users asking for the same place can get a faster response.
+- **Shared audio cache (backend)**: generated audio is stored in an R2 cache. The current backend does not set an automatic per-object expiration; files remain until manually deleted.
+- **Automatic diagnostics (backend)**: accepted reports are kept for up to seven days and may be deleted sooner after their sanitized summary has been added to our private issue tracker. The private issue tracker may retain those summaries after the raw reports are deleted.
+- **Service request logs**: Cloudflare handles IP addresses and request metadata under its service configuration and [privacy policy](https://www.cloudflare.com/privacypolicy/).
 
-- **Location (While Using / Always)** — to find places near you and auto-play narrations as you approach them. Required for the app's core function.
-- **Background audio / location** — to keep narrations playing when the screen is locked and to detect new places as you move with the app in the background. Only active when you tap the **Auto Narrate** button.
+## Your rights
 
-All permissions are optional. If you decline location access, the app still lets you browse and read about places manually from the map.
+- **Remove app data**: deleting the app removes its local data. It does not immediately remove backend records: usage counters expire three days after their UTC usage day, and device metadata expires up to 30 days after its last update. Shared caches and issue summaries follow the retention described above.
+- **See what we have**: email us. Given the small scope, we can usually reply within a few days.
+- **Stop location sharing**: revoke Location permission in iOS Settings → VoiceWay. The app falls back to manual map browsing.
+- **Use on-device speech**: turn on "Device TTS" in Settings. The audio is spoken on your device and the cloud TTS path is not invoked, so the cloud TTS character quota does not apply. Narration text is still generated through our backend and requires an internet connection; the daily narration quota still applies.
 
-## Children's privacy
+## Children
 
-VoiceWay is not directed at children under 13 and does not knowingly collect information from them.
+VoiceWay is not directed at children under 13. We don't knowingly collect information from children. If you believe we have, contact us and we'll delete it.
 
-## Retention
+## Changes
 
-- Device-side caches (narrations, audio, settings): kept until you clear them in Settings, or uninstall the app.
-- Backend narration text cache (hashed key): up to 3 days.
-- Backend audio cache (hashed key): up to 30 days.
-- Backend per-device daily quota counters: reset every 24 hours.
-
-## Your choices
-
-- Clear all caches: **Settings → Cache → Clear Cache** in the app.
-- Export your on-device activity log: **Settings → Debug → Debug Logs → Export**. Logs stay on your device unless you choose to share the exported file.
-- Revoke location access: iOS **Settings → Privacy & Security → Location Services → VoiceWay**.
-- Delete all data: uninstall the app.
-
-## Changes to this policy
-
-We'll post updates on this page with a new "Last updated" date. Material changes will be flagged in the app.
+We may update this policy. When we do, the "Last updated" date above changes.
 
 ## Contact
 
-Questions or requests about your privacy? Email **[voiceway@slyapustin.com](mailto:voiceway@slyapustin.com?subject=Privacy%20Question)**.
+**Email**: voiceway@slyapustin.com
